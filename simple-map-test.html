@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8 />
+  <title></title>
+  <script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
+  <style>
+    body {
+      margin: 350px 400px;
+      padding :0px;
+      text-align: center;
+    }
+    .map {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      height: 300px;
+      width: 600px;
+    }
+
+  </style>
+</head>
+<body>  
+        <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.css' rel='stylesheet' />
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css' rel='stylesheet' />
+        
+        <div id='map-leaflet' class='map'></div>
+        <script>
+            var obj = localStorage.getItem("obj");
+            obj = JSON.parse(obj);
+            genders = obj.gender;
+            ages = obj.age;
+            dates = obj.date;
+            states = obj.state;
+            places = obj.place;
+            types = obj.type;
+
+            L.mapbox.accessToken = 'pk.eyJ1IjoibGliZXJyaHl0aG0iLCJhIjoiY2o5dnZ4NDV4MGY3OTMzbWRuYzBiNzFuNyJ9.q_cY6k70-TdcAub24JTZLA';
+            var map = L.mapbox.map('map-leaflet', 'mapbox.streets', {
+                center: [0,0],
+                zoom: 10
+            });
+                //.setView([37.8, -96], 4)
+
+            var maxBounds = L.latLngBounds(
+                L.latLng(5.499550, -167.276413),
+                L.latLng(83.162102, -52.233040)
+            );
+
+            map.setMaxBounds(maxBounds);
+            map.fitBounds(maxBounds);
+
+            var count = 1;
+            var duplicates = []
+            for (var i in states) {
+                var latlng = [states[i].latitude, states[i].longitude];
+                var marker = L.marker(latlng);
+
+                var content = "<dl><dt>Gender: " + genders[i] + "</dt>"
+                    + "<dt>Age: " + ages[i] + "</dt>"
+                    + "<dt>Date: " + dates[i] + "</dt>"
+                    + "<dt>State: " + states[i].name + "</dt>"
+                    + "<dt>Place: " + places[i] + "</dt>"
+                    + "<dt>Type: " + types[i] + "</dt>";
+                //var content = genders[i] + ages[i] + ", "
+                //            + dates[i] + ", " + states[i].name + ", "
+                //            + places[i] + ", " + types[i];
+                
+                var marker = L.marker(latlng).addTo(map);
+                marker._popup_name = "popup" + count.toString();
+                marker._popup_content = content;
+                marker._popup_position = latlng;
+
+                marker.on('click', function(e){
+                    this._custom_popup = new L.Popup({ name: this._popup_name, })
+                    .setContent(this._popup_content)
+                    .setLatLng(this._popup_position);
+                map.addLayer(this._custom_popup);
+                });
+                count++;
+            }
+            map.scrollWheelZoom.disable();
+
+        </script>
+        <div class="Rer">
+        <button id='refreshbutton'onclick="refreshMap()">Refresh Map</button> 
+        </div>
+</body>
+</html>

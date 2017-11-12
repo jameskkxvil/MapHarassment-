@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<!--
+Harassment by James Koroma
+emeraldhome.co | @jameskxvil
+-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Map Harassment </title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" type="text/css" href="CSS/Main.css">
+  <!--  HTML Comment: Load the jquery JavaScript library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+
+			<!-- Header -->
+      <header id="header" class="alt">
+        <h1><a href="harassment.html"><img src="#" alt="Map Harassment" /></a></h1>          
+        <nav id="nav">
+          <ul>
+            <li><a href="index.html">Home</a></li>		
+            <li><a href="resources.html">Resources</a></li>						
+            <li><a href="theTeam.html">The Team</a></li>
+            <li>
+              <ul>
+                <li>
+                  <a href="#">Submenu</a>
+                  <ul>
+
+                  </ul>
+                </li>
+              </ul>
+            </li>
+            <li><a href="timeline.html" class="button">Show Results</a></li>
+          </ul>
+        </nav>
+      </header>
+
+</head>
+
+<body>
+
+  <div class="wrapper">
+    <div class="header">
+      <h1 class="title"><strong>Map Harassment</strong></h1>
+    </div>
+    <div class="content">
+      <div class="info">
+        <p>We are on a mission to create a harassment free world, <br> Help by taking our survey and providing us with valuable information. </p>
+      </div>
+    </div>
+    
+    <a class="typeform-share button" href="https://jimmyflores.typeform.com/to/YfLXHm" data-mode="popup" 
+    style="display:inline-block;text-decoration:none;background-color:#a80057;color:white;cursor:pointer;
+    font-family:Helvetica,Arial,sans-serif;font-size:16px;
+    line-height:40px;text-align:center;margin:50px auto;height:40px;padding:0px 26px;border-radius:10px;
+    max-width:auto;white-space:nowrap;overflow:hidden;
+    text-overflow:hidden;font-weight:bold;-webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale; "
+  
+     target="_blank">Click to take survey </a> 
+      <script> (function() { var qs,js,q,s,d=document, gi=d.getElementById, ce=d.createElement, gt=d.getElementsByTagName,
+      id="typef_orm_share", b="https://embed.typeform.com/"; if(!gi.call(d,id)){ js=ce.call(d,"script");
+       js.id=id; js.src=b+"embed.js"; q=gt.call(d,"script")[0]; q.parentNode.insertBefore(js,q) } })() 
+      </script>
+
+<head>
+  <meta charset=utf-8 />
+  <title></title>
+  <script src='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.js'></script>
+  <link href='https://api.mapbox.com/mapbox.js/v3.0.1/mapbox.css' rel='stylesheet' />
+  <style>
+    body {
+      margin: 0px auto;
+      padding :0px;
+      text-align: center;
+    }
+    .map {
+      position: auto;
+      top: 20px;
+      left: 400px;
+      bottom: 100px;
+      height: 300px;
+      width: 600px;
+      margin-bottom: 100px;
+    }
+
+  </style>
+        <script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.css' rel='stylesheet' />
+        <link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css' rel='stylesheet' />
+        
+        <div id='map-leaflet' class='map'></div>
+        <script>
+            function refreshMap() {
+              window.location.href = "typeformtest-1.html";
+            }
+
+            var obj = localStorage.getItem("obj");
+            obj = JSON.parse(obj);
+            genders = obj.gender;
+            ages = obj.age;
+            dates = obj.date;
+            states = obj.state;
+            places = obj.place;
+            types = obj.type;
+
+            L.mapbox.accessToken = 'pk.eyJ1IjoibGliZXJyaHl0aG0iLCJhIjoiY2o5dnZ4NDV4MGY3OTMzbWRuYzBiNzFuNyJ9.q_cY6k70-TdcAub24JTZLA';
+            var map = L.mapbox.map('map-leaflet', 'mapbox.streets', {
+                center: [0,0],
+                zoom: 10
+            });
+                //.setView([37.8, -96], 4)
+
+            var maxBounds = L.latLngBounds(
+                L.latLng(5.499550, -167.276413),
+                L.latLng(83.162102, -52.233040)
+            );
+
+            map.setMaxBounds(maxBounds);
+            map.fitBounds(maxBounds);
+
+            var count = 1;
+            var duplicates = []
+            for (var i in states) {
+                var latlng = [states[i].latitude, states[i].longitude];
+                var marker = L.marker(latlng);
+
+                var content = "<dl><dt>Gender: " + genders[i] + "</dt>"
+                    + "<dt>Age: " + ages[i] + "</dt>"
+                    + "<dt>Date: " + dates[i] + "</dt>"
+                    + "<dt>State: " + states[i].name + "</dt>"
+                    + "<dt>Place: " + places[i] + "</dt>"
+                    + "<dt>Type: " + types[i] + "</dt>";
+                //var content = genders[i] + ages[i] + ", "
+                //            + dates[i] + ", " + states[i].name + ", "
+                //            + places[i] + ", " + types[i];
+                
+                var marker = L.marker(latlng).addTo(map);
+                marker._popup_name = "popup" + count.toString();
+                marker._popup_content = content;
+                marker._popup_position = latlng;
+
+                marker.on('click', function(e){
+                    this._custom_popup = new L.Popup({ name: this._popup_name, })
+                    .setContent(this._popup_content)
+                    .setLatLng(this._popup_position);
+                map.addLayer(this._custom_popup);
+                });
+                count++;
+            }
+            map.scrollWheelZoom.disable();
+
+        </script>
+        <div class="Rer">
+        <button id='refreshbutton'onclick="refreshMap()">Refresh Map</button> 
+        </div>
+
+    <div class="footer">
+      <span class="copyright">Harassment Solutions © 2017 </span>
+    </div>
+  </div>
+</body>
+
+</html>

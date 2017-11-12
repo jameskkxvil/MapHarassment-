@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <title>Timeline</title>
+
+  <style type="text/css">
+    body, html {
+      font-family: sans-serif;
+    }
+  </style>
+
+    <script src="node_modules/vis/dist/vis.js"></script>
+    <link href="node_modules/vis/dist/vis.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="visualization"></div>
+
+<script type="text/javascript">
+  // DOM element where the Timeline will be attached
+  var container = document.getElementById('visualization');
+
+  // Create a DataSet (allows two way data-binding)
+  var obj = localStorage.getItem("obj");
+            obj = JSON.parse(obj);
+            genders = obj.gender;
+            ages = obj.age;
+            dates = obj.date;
+            states = obj.state;
+            places = obj.place;
+            types = obj.type;
+
+    var data = [];
+    for (var i in dates) {
+        var dataContent = "<dl><dt>" + dates[i] + "</dt>"
+         + "<dt>Gender: " + genders[i] + "</dt>"
+         + "<dt>Age: " + ages[i] + "</dt>"
+         + "<dt>State: " + states[i].name + "</dt>"
+         + "<dt>Place: " + places[i] + "</dt>"
+         + "<dt>Type: " + types[i] + "</dt>";
+        data.push({id: i+1, content: dataContent, start: dates[i]})
+    }
+    var items = new vis.DataSet(data);
+
+  // Configuration for the Timeline
+  var options = {
+      start: '1990-01-01',
+      end: '2020-01-01',
+      height:'600px'
+  };
+
+  
+  // Create a Timeline
+  var timeline = new vis.Timeline(container, items, options);
+</script>
+</body>
+</html>
